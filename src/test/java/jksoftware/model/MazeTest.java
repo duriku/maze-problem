@@ -1,9 +1,6 @@
 package jksoftware.model;
 
-import jksoftware.exception.MultipleEndPointsException;
-import jksoftware.exception.MultipleStartPointsException;
-import jksoftware.exception.NoEndCellException;
-import jksoftware.exception.NoStartCellException;
+import jksoftware.exception.*;
 import jksoftware.utils.FileUtils;
 import static junit.framework.TestCase.fail;
 import static org.hamcrest.CoreMatchers.is;
@@ -47,6 +44,12 @@ public class MazeTest {
 	public void testMissingEndPoint() throws Exception {
 		new Maze(FileUtils.INSTANCE.loadFile("invalid-square-maze-missing-end.txt"));
 		fail("NoEndCellException was not raised");
+	}
+
+	@Test(expected = InvalidCellException.class)
+	public void testInvalidCharacterInMaze() throws Exception {
+		new Maze(FileUtils.INSTANCE.loadFile("invalid-square-maze-invalid-character.txt"));
+		fail("InvalidCellException was not raised");
 	}
 
 }
