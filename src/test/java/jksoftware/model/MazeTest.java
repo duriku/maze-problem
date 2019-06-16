@@ -16,13 +16,12 @@ public class MazeTest {
 	public void testSingleValidStartPoint() throws Exception {
 		final Maze maze = new Maze(FileUtils.INSTANCE.loadFile("valid-square-maze.txt"));
 		assertThat(maze.getStartCell(), is(new StartCell(5, 1)));
-		System.out.println(maze);
 	}
 
 	@Test
 	public void testSingleValidEndPoint() throws Exception {
 		final Maze maze = new Maze(FileUtils.INSTANCE.loadFile("valid-square-maze.txt"));
-		assertThat(maze.getEndCell(), is(new StartCell(3, 3)));
+		assertThat(maze.getEndCell(), is(new EndCell(3, 3)));
 	}
 
 	@Test(expected = MultipleStartPointsException.class)

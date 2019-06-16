@@ -2,6 +2,7 @@ package jksoftware.service;
 
 import java.util.LinkedList;
 import static java.util.Objects.nonNull;
+import jksoftware.exception.ExitUnreachableException;
 import jksoftware.model.*;
 
 public class MazeService {
@@ -24,7 +25,7 @@ public class MazeService {
 			addNeighborToQueue(nextCellsToVisit, currentCell, maze.getAbove(currentCell));
 			addNeighborToQueue(nextCellsToVisit, currentCell, maze.getBelow(currentCell));
 		}
-		return maze;
+		throw new ExitUnreachableException("The exit could not be reached from the start point");
 	}
 
 	private void markPathFromTheExit(final Cell exit) {
@@ -38,8 +39,6 @@ public class MazeService {
 
 	private void addNeighborToQueue(final LinkedList<Cell> nextCellsToVisit, final Cell currentCell, final Cell nextCell) {
 		if (nonNull(nextCell) && !(nextCell instanceof Wall) && !nextCell.isVisited()) {
-			// TODO: REMOVE IT
-			System.out.println(nextCell.toString() + " has parent " + currentCell.toString());
 			nextCell.setParent(currentCell);
 			nextCell.setVisited(true);
 			nextCellsToVisit.add(nextCell);

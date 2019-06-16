@@ -70,7 +70,7 @@
                         <manifest>
                             <addClasspath>true</addClasspath>
                             <classpathPrefix>lib</classpathPrefix>
-                            <mainClass>main.java.jksoftware.App</mainClass>
+                            <mainClass>jksoftware.App</mainClass>
                         </manifest>
                     </archive>
                 </configuration>
