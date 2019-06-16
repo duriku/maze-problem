@@ -3,6 +3,7 @@ package jksoftware.model;
 import java.util.ArrayList;
 import java.util.List;
 import static java.util.Objects.isNull;
+import static java.util.stream.Collectors.joining;
 import jksoftware.exception.MultipleEndPointsException;
 import jksoftware.exception.MultipleStartPointsException;
 import jksoftware.exception.NoEndCellException;
@@ -43,20 +44,35 @@ public class Maze {
 		checkForStartAndEndFields();
 	}
 
-	// TODO: ERROR HANDLING, INDEX OUT OF BOUND
 	public Cell getAbove(final Cell cell) {
+		if (cell.getY().equals(0)) {
+			return null;
+		}
+
 		return mazeMap.get(cell.getX()).get(cell.getY() - 1);
 	}
 
 	public Cell getBelow(final Cell cell) {
+		if (cell.getY().equals(mazeMap.get(cell.getX()).size() - 1)) {
+			return null;
+		}
+
 		return mazeMap.get(cell.getX()).get(cell.getY() + 1);
 	}
 
 	public Cell getLeft(final Cell cell) {
+		if (cell.getX().equals(0)) {
+			return null;
+		}
+
 		return mazeMap.get(cell.getX() - 1).get(cell.getY());
 	}
 
 	public Cell getRight(final Cell cell) {
+		if (cell.getX().equals(mazeMap.size() - 1)) {
+			return null;
+		}
+
 		return mazeMap.get(cell.getX() + 1).get(cell.getY());
 	}
 
@@ -89,4 +105,12 @@ public class Maze {
 		}
 	}
 
+	@Override
+	public String toString() {
+		return mazeMap.stream()
+				.map(row -> row.stream()
+						.map(c -> String.valueOf(c.getCharacter()))
+						.collect(joining("")))
+				.collect(joining(System.getProperty("line.separator")));
+	}
 }
